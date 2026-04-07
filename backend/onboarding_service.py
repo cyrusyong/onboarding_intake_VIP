@@ -307,12 +307,13 @@ def generate_sample_answers(user_text: str, missing_fields: list[dict]) -> dict:
         return {}
 
     fields_needed = "\n".join(
-        f'  "{field["key"]}": "{field["label"]}" -> {field["question"]}'
+        f'  "{field["key"]}": "{str(field["label"]).replace(" (return as JSON array of strings)", "")}" -> {field["question"]}'
         for field in missing_fields
     )
     system = (
         "You generate realistic sample follow-up answers for a military spouse career intake. "
-        "Return ONLY a valid JSON object mapping field keys to short first-person answers. "
+        "Return ONLY a valid JSON object mapping field keys to short first-person conversational sentences. "
+        "NEVER return lists or JSON arrays; every value MUST be a single natural language string. "
         "Keep answers practical, specific, and consistent with the original story. "
         "Do not use markdown or explanations."
     )
@@ -330,11 +331,18 @@ Return a JSON object like:
     except json.JSONDecodeError:
         answers = {}
 
-    return {
-        field["key"]: str(answers.get(field["key"], "")).strip()
-        for field in missing_fields
-        if str(answers.get(field["key"], "")).strip()
-    }
+    final_answers = {}
+    for field in missing_fields:
+        val = answers.get(field["key"])
+        if not val:
+            continue
+        if isinstance(val, list):
+            val = ", ".join(str(v) for v in val)
+        val_str = str(val).strip()
+        if val_str:
+            final_answers[field["key"]] = val_str
+    
+    return final_answers
 
 
 def _shorten_text(value: str, max_len: int = 180) -> str:
