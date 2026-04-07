@@ -21,11 +21,6 @@ const STEPS = [
   },
   {
     id: 3,
-    label: "JSON",
-    note: "Review your result.",
-  },
-  {
-    id: 4,
     label: "Gap Analysis",
     note: "Review actionable steps.",
   },
@@ -80,14 +75,26 @@ function parseAsList(value, key) {
   const listFields = ["skills", "job_requirements", "projects"];
 
   if (Array.isArray(value)) {
-    if (value.length > 1) return value;
+    if (value.length >= 1) return value;
     return null;
   }
 
-  if (listFields.includes(key) && typeof value === "string" && value.includes(",")) {
-    const parts = value.split(",").map((s) => s.trim()).filter(Boolean);
-    if (parts.length > 1 && parts.every((p) => p.split(" ").length < 8)) {
-      return parts;
+  if (listFields.includes(key) && typeof value === "string") {
+    let cleanValue = value;
+    if (cleanValue.startsWith("[") && cleanValue.endsWith("]")) {
+      try {
+        const parsed = JSON.parse(cleanValue.replace(/'/g, '"'));
+        if (Array.isArray(parsed)) return parsed.filter(Boolean);
+      } catch (e) {
+        cleanValue = cleanValue.slice(1, -1);
+      }
+    }
+    
+    if (cleanValue.includes(",")) {
+      const parts = cleanValue.split(",").map((s) => s.replace(/^['"]|['"]$/g, "").trim()).filter(Boolean);
+      if (parts.length >= 1 && parts.every((p) => p.split(" ").length < 8)) {
+        return parts;
+      }
     }
   }
   return null;
@@ -299,16 +306,6 @@ function buildConversation(step, analysis, groupedMissingFields, activeQuestionT
     return [
       {
         role: "guide",
-        title: "All set",
-        body: "Your saved JSON overview is below.",
-      },
-    ];
-  }
-
-  if (step === 4) {
-    return [
-      {
-        role: "guide",
         title: "Gap Analysis",
         body: "Add optional mentor feedback and generate a personalized gap analysis based on crowdsourced data.",
       },
@@ -477,7 +474,6 @@ function App() {
     if (stepId === 1) return true;
     if (stepId === 2) return Boolean(analysis);
     if (stepId === 3) return Boolean(finalPayload);
-    if (stepId === 4) return Boolean(finalPayload);
     return false;
   }
 
@@ -561,7 +557,7 @@ function App() {
     }
   }
 
-  function handleGoToJson() {
+  function handleGoToGapAnalysis() {
     if (finalPayload) {
       setCurrentStep(3);
     }
@@ -788,8 +784,8 @@ function App() {
                 {loading ? "Saving..." : saveState === "saved" ? "Saved" : "Save"}
               </button>
               {finalPayload ? (
-                <button className="action-link" onClick={handleGoToJson} type="button">
-                  View JSON
+                <button className="action-link" onClick={handleGoToGapAnalysis} type="button">
+                  View Gap Analysis
                 </button>
               ) : null}
             </div>
@@ -882,8 +878,8 @@ function App() {
                 {loading ? "Saving..." : saveState === "saved" ? "Saved" : "Save intake"}
               </button>
               {finalPayload ? (
-                <button className="action-link" onClick={handleGoToJson} type="button">
-                  Go to JSON
+                <button className="action-link" onClick={handleGoToGapAnalysis} type="button">
+                  Go to Gap Analysis
                 </button>
               ) : null}
             </div>
@@ -918,25 +914,6 @@ function App() {
     }
 
     if (currentStep === 3) {
-      return (
-        <div className="finish-block">
-          <pre className="json-block">
-            <code>{JSON.stringify(exportSource || {}, null, 2)}</code>
-          </pre>
-
-          <div className="button-row">
-            <button className="ghost-button" onClick={handleReset} type="button">
-              Start over
-            </button>
-            <button className="primary-button" onClick={() => setCurrentStep(4)} type="button">
-              Proceed to Gap Analysis
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    if (currentStep === 4) {
       return (
         <div className="finish-block">
           {!gapAnalysisResult ? (
@@ -1068,7 +1045,7 @@ function App() {
           <header className="conversation-header">
             <div>
               <h1>
-                {currentStep === 1 ? "Your story" : currentStep === 2 ? "More details" : currentStep === 3 ? "Your JSON" : "Gap Analysis"}
+                {currentStep === 1 ? "Your story" : currentStep === 2 ? "More details" : "Gap Analysis"}
               </h1>
             </div>
           </header>
