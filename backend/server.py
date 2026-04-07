@@ -298,7 +298,9 @@ Output ONLY valid JSON with EXACT format:
             temperature=0.3,
         )
         text = resp.choices[0].message.content.strip()
-        parsed = json.loads(text)
+        from onboarding_service import _clean_json_response
+        cleaned_text = _clean_json_response(text)
+        parsed = json.loads(cleaned_text)
         return jsonify(parsed)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
