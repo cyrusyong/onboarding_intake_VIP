@@ -698,10 +698,15 @@ body {
 }
 
 .results-card {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 16px 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(68, 53, 30, 0.12);
+  padding: 0 0 20px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(68, 53, 30, 0.12);
+}
+
+.results-card:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .results-card h3 {
@@ -709,8 +714,6 @@ body {
   margin-bottom: 12px;
   color: var(--accent-deep);
   font-size: 1.15rem;
-  border-bottom: 1px solid rgba(68, 53, 30, 0.1);
-  padding-bottom: 8px;
 }
 
 .results-card h4 {
