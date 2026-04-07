@@ -24,6 +24,11 @@ const STEPS = [
     label: "JSON",
     note: "Review your result.",
   },
+  {
+    id: 4,
+    label: "Gap Analysis",
+    note: "Review actionable steps.",
+  },
 ];
 
 const FIELD_LABELS = {
@@ -295,7 +300,17 @@ function buildConversation(step, analysis, groupedMissingFields, activeQuestionT
       {
         role: "guide",
         title: "All set",
-        body: "Your saved JSON is below.",
+        body: "Your saved JSON overview is below.",
+      },
+    ];
+  }
+
+  if (step === 4) {
+    return [
+      {
+        role: "guide",
+        title: "Gap Analysis",
+        body: "Add optional mentor feedback and generate a personalized gap analysis based on crowdsourced data.",
       },
     ];
   }
@@ -319,6 +334,10 @@ function App() {
   const [resumeText, setResumeText] = useState("");
   const [resumeFileName, setResumeFileName] = useState("");
   const [resumeError, setResumeError] = useState("");
+  const [mentorFeedback, setMentorFeedback] = useState("");
+  const [gapAnalysisLoading, setGapAnalysisLoading] = useState(false);
+  const [gapAnalysisResult, setGapAnalysisResult] = useState(null);
+  const [gapAnalysisError, setGapAnalysisError] = useState("");
   const lastSourceRef = useRef({ story: "", resumeText: "", sentenceCount: 0 });
 
   const currentSentenceCount = (story.match(/[.!?\n]+/g) || []).length;
@@ -458,6 +477,7 @@ function App() {
     if (stepId === 1) return true;
     if (stepId === 2) return Boolean(analysis);
     if (stepId === 3) return Boolean(finalPayload);
+    if (stepId === 4) return Boolean(finalPayload);
     return false;
   }
 
@@ -633,6 +653,9 @@ function App() {
     setAnswers({});
     setFormattedAnswers({});
     setFinalPayload(null);
+    setMentorFeedback("");
+    setGapAnalysisResult(null);
+    setGapAnalysisError("");
     setError("");
     setCurrentStep(1);
     setSaveState("idle");
@@ -869,19 +892,146 @@ function App() {
       );
     }
 
-return (
-  <div className="finish-block">
-    <pre className="json-block">
-      <code>{JSON.stringify(exportSource || {}, null, 2)}</code>
-    </pre>
+    async function handleGenerateGapAnalysis() {
+      if (!overview) return;
+      setGapAnalysisLoading(true);
+      setGapAnalysisError("");
+      try {
+        const response = await fetch(`${API_BASE}/api/gap-analysis/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            onboarding_data: overview,
+            mentor_feedback: mentorFeedback,
+          }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to generate gap analysis.");
+        }
+        setGapAnalysisResult(data);
+      } catch (err) {
+        setGapAnalysisError(err.message);
+      } finally {
+        setGapAnalysisLoading(false);
+      }
+    }
 
-    <div className="button-row">
-      <button className="ghost-button" onClick={handleReset} type="button">
-        Start over
-      </button>
-    </div>
-  </div>
-);
+    if (currentStep === 3) {
+      return (
+        <div className="finish-block">
+          <pre className="json-block">
+            <code>{JSON.stringify(exportSource || {}, null, 2)}</code>
+          </pre>
+
+          <div className="button-row">
+            <button className="ghost-button" onClick={handleReset} type="button">
+              Start over
+            </button>
+            <button className="primary-button" onClick={() => setCurrentStep(4)} type="button">
+              Proceed to Gap Analysis
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (currentStep === 4) {
+      return (
+        <div className="finish-block">
+          {!gapAnalysisResult ? (
+            <div className="composer">
+              <label htmlFor="mentorFeedback" className="question-meta" style={{ display: "block", marginBottom: 8 }}>
+                Mentor Feedback (Optional)
+              </label>
+              <textarea
+                id="mentorFeedback"
+                className="story-input"
+                value={mentorFeedback}
+                onChange={(e) => setMentorFeedback(e.target.value)}
+                placeholder="Type your mentor feedback here if any..."
+                rows={4}
+              />
+              {gapAnalysisError && <p className="resume-error" style={{marginTop: 8}}>{gapAnalysisError}</p>}
+              <div className="button-row" style={{ marginTop: 16 }}>
+                <button
+                  className="primary-button"
+                  onClick={handleGenerateGapAnalysis}
+                  disabled={gapAnalysisLoading}
+                  type="button"
+                >
+                  {gapAnalysisLoading ? "Generating..." : "Generate Gap Analysis"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="analysis-results">
+              <div className="results-card">
+                <h3>Derived Requirements</h3>
+                <ul>
+                  {(gapAnalysisResult.requirements || []).map((req, i) => (
+                    <li key={i}>
+                      <strong>{req.id}:</strong> {req.text} <span className="meta-chip meta-chip-soft">{req.kind}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="results-card">
+                <h3>Gaps</h3>
+                <h4>Known Gaps</h4>
+                <ul>
+                  {(gapAnalysisResult.known_gaps || []).map((g, i) => (
+                    <li key={i}><strong>{g.title}</strong> <span className="meta-chip meta-chip-soft">{g.kind}</span></li>
+                  ))}
+                </ul>
+                <h4>Unknown / Unrealized Gaps</h4>
+                <ul>
+                  {(gapAnalysisResult.unknown_gaps || []).map((g, i) => (
+                    <li key={i}><strong>{g.title}</strong> <span className="meta-chip meta-chip-soft">{g.kind}</span></li>
+                  ))}
+                </ul>
+                <h4>Perceived / False Gaps</h4>
+                <ul>
+                  {(gapAnalysisResult.perceived_gaps || []).map((g, i) => (
+                    <li key={i}><strong>{g.title}</strong></li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="results-card">
+                <h3>Next Steps</h3>
+                <ul>
+                  {(gapAnalysisResult.next_steps || []).map((s, i) => (
+                    <li key={i}><strong>{s.action}:</strong> {s.timeframe}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="results-card">
+                <h3>Case Patterns</h3>
+                {(gapAnalysisResult.what_others_have_done || []).map((item, i) => (
+                  <div key={i} style={{ marginBottom: 12 }}>
+                    <div><strong>Pattern:</strong> {item.pattern}</div>
+                    <div><strong>Success:</strong> <span style={{color: "#4e73df"}}>{item.how_they_succeeded}</span></div>
+                    <div><strong>Relevance:</strong> {item.relevance_to_user}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="button-row" style={{ marginTop: 24 }}>
+                <button className="ghost-button" onClick={() => setGapAnalysisResult(null)} type="button">
+                  Recalculate
+                </button>
+                <button className="ghost-button" onClick={handleReset} type="button">
+                  Start over
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
   }
 
   return (
@@ -918,7 +1068,7 @@ return (
           <header className="conversation-header">
             <div>
               <h1>
-                {currentStep === 1 ? "Your story" : currentStep === 2 ? "More details" : "Your JSON"}
+                {currentStep === 1 ? "Your story" : currentStep === 2 ? "More details" : currentStep === 3 ? "Your JSON" : "Gap Analysis"}
               </h1>
             </div>
           </header>

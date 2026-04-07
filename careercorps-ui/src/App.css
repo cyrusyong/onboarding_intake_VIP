@@ -691,3 +691,40 @@ body {
     padding-left: 0;
   }
 }
+
+.analysis-results {
+  display: grid;
+  gap: 16px;
+}
+
+.results-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(68, 53, 30, 0.12);
+}
+
+.results-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--accent-deep);
+  font-size: 1.15rem;
+  border-bottom: 1px solid rgba(68, 53, 30, 0.1);
+  padding-bottom: 8px;
+}
+
+.results-card h4 {
+  margin: 12px 0 6px 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.results-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.results-card li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}

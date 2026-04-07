@@ -1,0 +1,549 @@
+{
+  "cases": [
+    {
+      "case_id": 7,
+      "title": "Military Spouse Accountant",
+      "profession": "Accountant",
+      "experience": {
+        "pcs_moves": 4,
+        "years_span": 9,
+        "job_durations": [24, 12, 18, 24],
+        "time_unemployed_after_moves_months": [3, 4, 2],
+        "promotions": true,
+        "job_level_path": ["Entry", "Entry", "Mid", "Mid"]
+      },
+      "licensing": {
+        "states": ["FL", "NC"],
+        "time_to_relicensure_months": [2, 3],
+        "cost_per_move_usd": 800,
+        "income_lost_usd": 20000,
+        "interstate_compact": false
+      },
+      "skills": {
+        "courses": ["CPA prep (partial)"],
+        "certifications": [],
+        "career_pivot_attempts": 0,
+        "skills_before": 6,
+        "skills_after": 7,
+        "employer_training": false
+      },
+      "psychological": {
+        "career_satisfaction": 6,
+        "identity_loss": 5,
+        "stress": 7,
+        "belonging": 6
+      }
+    },
+    {
+      "case_id": 8,
+      "title": "Marketing Specialist",
+      "profession": "Marketing",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 6,
+        "job_durations": [24, 12, 12],
+        "time_unemployed_after_moves_months": [2, 3],
+        "promotions": false,
+        "job_level_path": ["Entry", "Entry", "Entry"]
+      },
+      "licensing": {
+        "income_lost_usd": 10000
+      },
+      "skills": {
+        "courses": ["Digital marketing bootcamp"],
+        "certifications": ["Google Ads", "SEO"],
+        "career_pivot_attempts": 0,
+        "skills_before": 5,
+        "skills_after": 8,
+        "employer_training": false
+      },
+      "psychological": {
+        "career_satisfaction": 7,
+        "identity_loss": 4,
+        "stress": 6,
+        "belonging": 7
+      }
+    },
+    {
+      "case_id": 9,
+      "title": "Licensed Therapist",
+      "profession": "Licensed Therapist",
+      "experience": {
+        "pcs_moves": 5,
+        "years_span": 12,
+        "job_durations": [24, 24, 12, 24, 12],
+        "time_unemployed_after_moves_months": [6, 8],
+        "promotions": false,
+        "job_level_path": ["Mid", "Mid"]
+      },
+      "licensing": {
+        "states_count": 3,
+        "time_to_relicensure_months": [6, 9],
+        "cost_per_move_usd": 1500,
+        "income_lost_per_move_usd": 40000,
+        "interstate_compact": false
+      },
+      "skills": {
+        "courses": ["CE credits"],
+        "certifications": [],
+        "career_pivot_attempts": 0,
+        "skills_before": 8,
+        "skills_after": 8,
+        "employer_training": false
+      },
+      "psychological": {
+        "career_satisfaction": 3,
+        "identity_loss": 8,
+        "stress": 9,
+        "belonging": 2
+      }
+    },
+    {
+      "case_id": 10,
+      "title": "UX Designer (Remote Transition)",
+      "profession": "UX Designer",
+      "experience": {
+        "pcs_moves": 2,
+        "years_span": 5,
+        "job_durations": [24, 36],
+        "time_unemployed_after_moves_months": [1, 0],
+        "promotions": true,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "licensing": {
+        "income_lost_usd": 3000
+      },
+      "skills": {
+        "courses": ["UX bootcamp"],
+        "certifications": ["UX certification"],
+        "career_pivot_attempts": 1,
+        "pivot_description": "Graphic design to UX",
+        "skills_before": 5,
+        "skills_after": 9,
+        "employer_training": true
+      },
+      "psychological": {
+        "career_satisfaction": 9,
+        "identity_loss": 2,
+        "stress": 5,
+        "belonging": 8
+      }
+    },
+    {
+      "case_id": 11,
+      "title": "Administrative Assistant",
+      "profession": "Administrative Assistant",
+      "experience": {
+        "pcs_moves": 4,
+        "years_span": 8,
+        "job_durations": [12, 12, 12, 12],
+        "time_unemployed_after_moves_months": [3, 5],
+        "promotions": false,
+        "job_level_path": ["Entry", "Entry"]
+      },
+      "licensing": {
+        "income_lost_usd": 22000
+      },
+      "skills": {
+        "courses": [],
+        "certifications": [],
+        "career_pivot_attempts": 0,
+        "skills_before": 6,
+        "skills_after": 6,
+        "employer_training": false
+      },
+      "psychological": {
+        "career_satisfaction": 4,
+        "identity_loss": 6,
+        "stress": 8,
+        "belonging": 4
+      }
+    },
+    {
+      "case_id": 12,
+      "title": "Cybersecurity Analyst",
+      "profession": "Cybersecurity Analyst",
+      "experience": {
+        "pcs_moves": 2,
+        "years_span": 6,
+        "job_durations": [36, 36],
+        "time_unemployed_after_moves_months": [0],
+        "promotions": true,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "licensing": {
+        "income_lost_usd": 0
+      },
+      "skills": {
+        "courses": ["Security+ prep"],
+        "certifications": ["Security+"],
+        "career_pivot_attempts": 1,
+        "pivot_description": "IT support to cybersecurity",
+        "skills_before": 6,
+        "skills_after": 9,
+        "employer_training": true
+      },
+      "psychological": {
+        "career_satisfaction": 9,
+        "identity_loss": 1,
+        "stress": 4,
+        "belonging": 9
+      }
+    },
+    {
+      "case_id": 13,
+      "title": "Dental Hygienist",
+      "profession": "Dental Hygienist",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 7,
+        "job_durations": [24, 24, 12],
+        "time_unemployed_after_moves_months": [5, 6],
+        "promotions": false,
+        "job_level_path": ["Mid", "Mid"]
+      },
+      "licensing": {
+        "states_count": 2,
+        "time_to_relicensure_months": [5],
+        "cost_per_move_usd": 1000,
+        "income_lost_usd": 25000,
+        "interstate_compact": false
+      },
+      "skills": {
+        "courses": ["CE credits"],
+        "certifications": [],
+        "skills_before": 8,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 5,
+        "identity_loss": 6,
+        "stress": 8,
+        "belonging": 5
+      }
+    },
+    {
+      "case_id": 14,
+      "title": "Freelance Writer",
+      "profession": "Freelance Writer",
+      "experience": {
+        "pcs_moves": 4,
+        "years_span": 10,
+        "job_durations": [120],
+        "time_unemployed_after_moves_months": [0, 1],
+        "promotions": null,
+        "job_level_path": ["Self-employed"]
+      },
+      "licensing": {
+        "income_lost_usd": 5000
+      },
+      "skills": {
+        "courses": ["Copywriting course"],
+        "certifications": [],
+        "skills_before": 6,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 8,
+        "identity_loss": 2,
+        "stress": 5,
+        "belonging": 7
+      }
+    },
+    {
+      "case_id": 15,
+      "title": "HR Generalist",
+      "profession": "HR Generalist",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 9,
+        "job_durations": [36, 24, 24],
+        "time_unemployed_after_moves_months": [2, 3],
+        "promotions": true,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "licensing": {
+        "income_lost_usd": 9000
+      },
+      "skills": {
+        "courses": ["SHRM prep"],
+        "certifications": ["SHRM-CP"],
+        "skills_before": 6,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 8,
+        "identity_loss": 3,
+        "stress": 6,
+        "belonging": 7
+      }
+    },
+    {
+      "case_id": 16,
+      "title": "Paralegal",
+      "profession": "Paralegal",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 8,
+        "job_durations": [24, 12, 24],
+        "time_unemployed_after_moves_months": [4],
+        "promotions": false,
+        "job_level_path": ["Entry", "Entry"]
+      },
+      "licensing": {
+        "income_lost_usd": 15000
+      },
+      "skills": {
+        "courses": ["Legal writing course"],
+        "certifications": ["Paralegal certification"],
+        "skills_before": 6,
+        "skills_after": 7
+      },
+      "psychological": {
+        "career_satisfaction": 5,
+        "identity_loss": 5,
+        "stress": 7,
+        "belonging": 5
+      }
+    },
+    {
+      "case_id": 17,
+      "title": "Nurse Practitioner",
+      "profession": "Nurse Practitioner",
+      "experience": {
+        "pcs_moves": 2,
+        "years_span": 6,
+        "job_durations": [36, 24],
+        "time_unemployed_after_moves_months": [5, 5],
+        "promotions": false,
+        "job_level_path": ["Mid", "Mid"]
+      },
+      "licensing": {
+        "states_count": 2,
+        "time_to_relicensure_months": [6],
+        "cost_per_move_usd": 2000,
+        "income_lost_usd": 35000,
+        "interstate_compact": "Partial"
+      },
+      "skills": {
+        "courses": ["CE credits"],
+        "skills_before": 9,
+        "skills_after": 9
+      },
+      "psychological": {
+        "career_satisfaction": 6,
+        "identity_loss": 6,
+        "stress": 9,
+        "belonging": 4
+      }
+    },
+    {
+      "case_id": 18,
+      "title": "Data Scientist (Remote)",
+      "profession": "Data Scientist",
+      "experience": {
+        "pcs_moves": 2,
+        "years_span": 7,
+        "job_durations": [36, 48],
+        "time_unemployed_after_moves_months": [0],
+        "promotions": true,
+        "job_level_path": ["Mid", "Senior"]
+      },
+      "licensing": {
+        "income_lost_usd": 0
+      },
+      "skills": {
+        "courses": ["ML specialization"],
+        "certifications": ["ML certification"],
+        "skills_before": 7,
+        "skills_after": 9
+      },
+      "psychological": {
+        "career_satisfaction": 9,
+        "identity_loss": 1,
+        "stress": 4,
+        "belonging": 9
+      }
+    },
+    {
+      "case_id": 19,
+      "title": "Real Estate Agent",
+      "profession": "Real Estate Agent",
+      "experience": {
+        "pcs_moves": 5,
+        "years_span": 10,
+        "job_durations": [12, 24],
+        "time_unemployed_after_moves_months": [3, 6],
+        "promotions": null,
+        "job_level_path": ["Self-employed"]
+      },
+      "licensing": {
+        "states_count": 4,
+        "time_to_relicensure_months": [3],
+        "cost_per_move_usd": 700,
+        "income_lost_usd": 18000
+      },
+      "skills": {
+        "courses": ["Licensing courses"],
+        "skills_before": 5,
+        "skills_after": 7
+      },
+      "psychological": {
+        "career_satisfaction": 6,
+        "identity_loss": 4,
+        "stress": 8,
+        "belonging": 6
+      }
+    },
+    {
+      "case_id": 20,
+      "title": "Teacher (No Pivot)",
+      "profession": "Teacher",
+      "experience": {
+        "pcs_moves": 4,
+        "years_span": 10,
+        "job_durations": [24, 24, 24, 12],
+        "time_unemployed_after_moves_months": [4, 5],
+        "promotions": false,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "licensing": {
+        "states_count": 3,
+        "time_to_relicensure_months": [4],
+        "cost_per_move_usd": 1000,
+        "income_lost_usd": 20000
+      },
+      "skills": {
+        "courses": ["CE credits"],
+        "skills_before": 7,
+        "skills_after": 7
+      },
+      "psychological": {
+        "career_satisfaction": 5,
+        "identity_loss": 6,
+        "stress": 8,
+        "belonging": 5
+      }
+    },
+    {
+      "case_id": 21,
+      "title": "Graphic Designer",
+      "profession": "Graphic Designer",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 6,
+        "job_durations": [24, 12, 12],
+        "time_unemployed_after_moves_months": [2],
+        "promotions": false,
+        "job_level_path": ["Entry", "Entry"]
+      },
+      "skills": {
+        "courses": ["Adobe certification"],
+        "skills_before": 6,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 7,
+        "identity_loss": 3,
+        "stress": 6,
+        "belonging": 7
+      }
+    },
+    {
+      "case_id": 22,
+      "title": "Logistics Coordinator",
+      "profession": "Logistics Coordinator",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 7,
+        "job_durations": [24, 24, 12],
+        "time_unemployed_after_moves_months": [3],
+        "promotions": true,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "skills": {
+        "courses": ["Supply chain certification"],
+        "skills_before": 6,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 7,
+        "identity_loss": 4,
+        "stress": 6,
+        "belonging": 7
+      }
+    },
+    {
+      "case_id": 23,
+      "title": "Stay-at-home to Workforce Reentry",
+      "profession": "Workforce Reentry",
+      "experience": {
+        "pcs_moves": 2,
+        "years_span": 6,
+        "job_durations": [36, 12],
+        "time_unemployed_after_moves_months": [12],
+        "promotions": false,
+        "job_level_path": ["Entry"]
+      },
+      "skills": {
+        "courses": ["Returnship program"],
+        "certifications": ["Reentry certification"],
+        "skills_before": 3,
+        "skills_after": 6
+      },
+      "psychological": {
+        "career_satisfaction": 6,
+        "identity_loss": 7,
+        "stress": 7,
+        "belonging": 6
+      }
+    },
+    {
+      "case_id": 24,
+      "title": "Personal Trainer",
+      "profession": "Personal Trainer",
+      "experience": {
+        "pcs_moves": 4,
+        "years_span": 8,
+        "job_durations": [12, 24],
+        "time_unemployed_after_moves_months": [1, 2],
+        "promotions": null
+      },
+      "skills": {
+        "certifications": ["CPT"],
+        "skills_before": 6,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 8,
+        "identity_loss": 2,
+        "stress": 5,
+        "belonging": 8
+      }
+    },
+    {
+      "case_id": 25,
+      "title": "Business Analyst",
+      "profession": "Business Analyst",
+      "experience": {
+        "pcs_moves": 3,
+        "years_span": 8,
+        "job_durations": [24, 24, 24],
+        "time_unemployed_after_moves_months": [2],
+        "promotions": true,
+        "job_level_path": ["Entry", "Mid"]
+      },
+      "skills": {
+        "courses": ["SQL", "Tableau"],
+        "skills_before": 5,
+        "skills_after": 8
+      },
+      "psychological": {
+        "career_satisfaction": 8,
+        "identity_loss": 3,
+        "stress": 6,
+        "belonging": 7
+      }
+    }
+  ]
+}
