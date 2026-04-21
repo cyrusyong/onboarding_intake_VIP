@@ -273,7 +273,44 @@ def generate_prompts(user_text: str, missing_fields: list[str]) -> dict:
     if not missing_fields:
         return {}
 
-    return {key: FOLLOW_UP_TEMPLATES.get(key, FIELD_SCHEMA[key]["label"]) for key in missing_fields}
+    fields_needed = "\n".join(
+        f'  "{key}": "{FIELD_SCHEMA[key]["label"]}"'
+        for key in missing_fields
+    )
+    system = (
+        "You generate personalized follow-up questions for a military spouse career intake form. "
+        "You are given the user's intake story and a list of fields that are still missing. "
+        "For each missing field, write a single short, conversational question that is tailored to "
+        "what the user has already said — referencing their specific situation, career goal, or background "
+        "where relevant. Do not ask generic questions; make each question feel like a natural follow-up "
+        "to their story. Return ONLY a valid JSON object mapping each field key to its question string. "
+        "Do not include explanations, markdown, or any other text."
+    )
+    prompt = f"""A user shared this intake story:
+\"\"\"{user_text}\"\"\"
+
+The following fields are still missing. Write one personalized follow-up question per field:
+{fields_needed}
+
+Return a JSON object like:
+{{ "field_key": "Your personalized question here?", ... }}
+
+Rules:
+- Reference specifics from their story (their career goal, background, constraints) when possible.
+- Keep each question short (under 15 words ideally).
+- Sound like a caring advisor, not a form.
+- Every field key must appear in the output."""
+    raw = _clean_json_response(call_ollama(prompt, system))
+    try:
+        generated = json.loads(raw)
+    except json.JSONDecodeError:
+        generated = {}
+
+    # Fall back to static templates for any field the LLM missed
+    return {
+        key: str(generated.get(key) or FOLLOW_UP_TEMPLATES.get(key, FIELD_SCHEMA[key]["label"]))
+        for key in missing_fields
+    }
 
 
 def generate_sample_story() -> str:
